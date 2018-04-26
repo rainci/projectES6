@@ -1,0 +1,9 @@
+npm-debug.log
+.idea/
+.idea/vcs.xml
+node_modules/
+*.rdb
+.DS_Store
+*/.DS_Store
+dist/
+.vscode/settings.json

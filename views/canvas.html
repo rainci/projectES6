@@ -1,0 +1,71 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>涂鸦</title>
+    <style>
+        body{margin: auto 0;text-align: center;}
+        canvas{border: 3px red solid;}
+        .mosaicSize span {
+                display:inline-block;
+                width:15px;
+                height: 15px;
+                border-radius:100%;
+                background:green;
+                color: white;
+                font-size: 12px;
+        }
+    </style>
+    
+</head>
+<body>
+<div>
+    <input type="button" value="撤销" id="undoBtn" onclick=mosaicCanvas.backCanvas() />
+    <input type="button" value="重置" id="undoBtn2" onclick=mosaicCanvas.originCanvas() />
+    <div class="mosaicSize">
+        <span data-num=2>2</span>
+        <span data-num=3>3</span>
+        <span data-num=5>5</span>
+    </div>
+</div> 
+<script src="./public/js/canvas.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+    //获取同级元素
+    const getSubling = (e)=>{
+        let arr = [],
+            pre = e.previousSibling;
+        while(pre){
+            if(pre.nodeType ==1){
+                arr.unshift(pre);
+            } 
+            pre = pre.previousSibling;
+        }
+        let next = e.nextSibling;
+        while(next){
+            if(next.nodeType == 1){
+                arr.push(next);
+            }
+            next = next.nextSibling;            
+        }
+        return arr;
+            
+    };
+    //初始化图片和各项操作功能
+    mosaicCanvas.drawCanvas({canvasWidth:800,sourceImagePath:'1.jpg'})
+    //笔刷切换
+    var spans = document.getElementsByTagName('span');
+    for(let i=0;i<spans.length;i++){
+        spans[i].addEventListener('click',function(){
+            var num = this.dataset.num;
+            mosaicCanvas.mosaicSize(num,()=>{
+                this.style.background = 'red';
+                var sibling = getSubling(this);
+                for(let j=0;j<sibling.length;j++){
+                    sibling[j].style.background = 'green';
+                }
+            });
+        });
+    }
+</script>

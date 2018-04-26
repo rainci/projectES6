@@ -1,0 +1,204 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>涂鸦</title>
+    <style>
+        body{margin: auto 0;text-align: center;}
+        canvas{border: 3px red solid;}
+    </style>
+    <script>
+        //define stack class
+        function Stack() {
+            var items = [];
+            //push to stack
+            this.push = function(element){
+                items.push(element);
+            };
+            //pop out stack
+            this.pop = function(){
+                return items.pop();
+            };
+            //return last one
+            this.peek = function(){
+                return items[items.length-1];
+            };
+            this.isEmpty = function(){
+                return items.length == 0;
+            };
+            //return stack length
+            this.size = function(){
+                return items.length;
+            };
+            //clear stack
+            this.clear = function(){
+                items = [];
+            };
+            //print stack data from log
+            this.print = function(){
+                console.log(items.toString());
+            };
+            this.toString = function(){
+                return items.toString();
+            };
+        }
+    </script>
+</head>
+<body>
+<!--<canvas id="canvas" data-src="./1.jpg" width="800" height="600"></canvas>-->
+<p/>
+<div>
+   set size of mosaic block: <input type="text" value="5" id="mosaicSize"/>
+</div>
+<div>
+    <input type="button" value="undo" id="undoBtn"/>
+</div>
+<!-- <script src="./public/js/canvas.js"></script> -->
+</body>
+</html>
+<script type="text/javascript">
+// drawCanvas({canvasWidth:800,sourceImagePath:'1.jpg'})
+    
+
+    var initData = {
+        canvasWidth : 800,
+        sourceImagePath:'1.jpg'
+    };
+
+    var canvas,ctx,aImg,stack,canvasWidth;
+
+    stack = new Stack();
+    canvasWidth = initData.canvasWidth;
+    aImg = new Image();
+    aImg.src = initData.sourceImagePath;
+
+
+    aImg.onload = function(){
+        //绘制第一张图
+        //ctx.drawImage(this,0,0,400,400);
+        var height = aImg.height/(aImg.width/canvasWidth);
+        var canvasObj = document.createElement('canvas');
+        canvasObj.id = 'canvas';
+        canvasObj.width = canvasWidth;
+        canvasObj.height = height;
+
+        document.body.appendChild(canvasObj);
+
+        canvas = canvasObj;
+        ctx = canvas.getContext("2d");
+
+        ctx.drawImage(this,0,0,canvasWidth,height);
+        setMosaicSize(5);
+
+
+        canvas.onmousedown = function(){
+            canvas.style.cursor = 'pointer';
+            stack.push(convertCanvasToImage(canvas));
+            document.getElementById('undoBtn').value = 'undo - '+stack.size();
+
+            if( !canvas.onmousemove){
+                canvas.onmousemove = function(evt){
+                    var x = evt.pageX - canvas.offsetLeft;
+                    var y = evt.pageY - canvas.offsetTop;
+                    draw(aImg,x-2,y-(num*10)/2);
+                }
+            }
+        }
+
+        canvas.onmouseup = function(){
+            canvas.style.cursor = '';
+            canvas.onmousemove = null;
+        }
+
+
+    }
+
+
+
+    // 马赛克的程度，数字越大越模糊
+    var num = 3;
+
+
+    // 从 canvas 提取图片 image
+    function convertCanvasToImage(canvas) {
+        //新Image对象，可以理解为DOM
+        var image = new Image();
+        // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
+        // 指定格式 PNG
+        image.src = canvas.toDataURL("image/png");
+        return image;
+    }
+
+
+    function setMosaicSize(){
+        var _num = document.getElementById('mosaicSize').value;
+        if(_num && _num>=3 && _num <=50){
+            num = _num;
+        }else{
+            num = 3;
+        }
+
+    }
+
+
+    function draw(obj,x,y){
+        setMosaicSize();
+        //获取左边图像的局部坐标的部分像素（左图位置在258，为方便演示，这里设成和马赛克显示位置一样的坐标）
+        var oImg = ctx.getImageData(x,y,num*10,num*10);
+
+        var w = oImg.width;
+        var h = oImg.height;
+
+        //等分画布
+        var stepW = w/num;
+        var stepH = h/num;
+        //这里是循环画布的像素点
+        for(var i=0;i<stepH;i++){
+            for(var j=0;j<stepW;j++){
+                //获取一个小方格的随机颜色，这是小方格的随机位置获取的
+                var color = getXY(oImg,j*num+Math.floor(Math.random()*num),i*num+Math.floor(Math.random()*num));
+                //这里是循环小方格的像素点，
+                for(var k=0;k<num;k++){
+                    for(var l=0;l<num;l++){
+                        //设置小方格的颜色
+                        setXY(oImg,j*num+l,i*num+k,color);
+                    }
+                }
+
+            }
+        }
+        ctx.putImageData(oImg,x,y);
+    }
+
+    function getXY(obj,x,y){
+        var w = obj.width;
+        var color = [];
+        color[0] =     obj.data[4*(y*w+x)];
+        color[1] =     obj.data[4*(y*w+x)+1];
+        color[2] =     obj.data[4*(y*w+x)+2];
+        color[3] =     obj.data[4*(y*w+x)+3];
+        return color;
+    }
+
+    function setXY(obj,x,y,color){
+        var w = obj.width;
+        obj.data[4*(y*w+x)] = color[0];
+        obj.data[4*(y*w+x)+1] = color[1];
+        obj.data[4*(y*w+x)+2] = color[2];
+        obj.data[4*(y*w+x)+3] = color[3];
+    }
+
+
+
+
+    document.getElementById('undoBtn').onclick = function(){
+        var undoImage = stack.pop();
+        if(undoImage){
+            ctx.drawImage(undoImage,0,0);
+            document.getElementById('undoBtn').value = 'undo - '+stack.size();
+        }
+
+    }
+
+
+</script>

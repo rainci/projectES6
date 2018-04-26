@@ -1,0 +1,27 @@
+{
+  "name": "projectes6",
+  "version": "1.0.0",
+  "description": "about es6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuyuxi520/projectES6.git"
+  },
+  "author": "lyx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuyuxi520/projectES6/issues"
+  },
+  "homepage": "https://github.com/liuyuxi520/projectES6#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "browser-sync": "^2.23.7",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-uglify": "^3.0.0"
+  }
+}
