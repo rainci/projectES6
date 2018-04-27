@@ -40,5 +40,4 @@ gulp.task('watch',function(){//监听事件
     gulp.watch(["./public/ES6/**/*.js"],["js"]);
     gulp.watch(["./views/**/*.html"],["templates"]); 
 });
-gulp.task("lyx",["js","templates","watch","serve"]);
-gulp.task("default",["lyx"]);
+gulp.task("default",["js","templates","watch","serve"]);

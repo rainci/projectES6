@@ -37,9 +37,9 @@
         let arr = [],
             pre = e.previousSibling;
         while(pre){
-            if(pre.nodeType ==1){
+            if(pre.nodeType == 1){
                 arr.unshift(pre);
-            } 
+            }
             pre = pre.previousSibling;
         }
         let next = e.nextSibling;
