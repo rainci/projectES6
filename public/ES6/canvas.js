@@ -27,7 +27,8 @@ window.mosaicCanvas = (() => {
             let canvasEl = initDraw(this);
             canvasEl.onmousedown = () => {//鼠标在画布上点击
                 canvasEl.style.cursor = 'pointer';
-                stack.push(convertCanvasToImage(canvasEl));  //鼠标down时，保存一个新图片，src=canvas转换成base64     
+                stack.push(convertCanvasToImage(canvasEl));
+                //鼠标down时，保存一个新图片，src=canvas转换成base64     
                 if( !canvasEl.onmousemove){
                     canvasEl.onmousemove = evt => { //鼠标在画布上移动
                         let x = evt.pageX - canvasEl.offsetLeft;
@@ -116,11 +117,19 @@ window.mosaicCanvas = (() => {
         num = number;
         if(typeof callback ==='function') callback();
     }
+    //从新加载最初img，一切从零绘画
+    const reDrawCanvas = data => {
+        let thisNode=document.getElementById("canvas");
+        thisNode.parentNode.removeChild(thisNode);
+        stack.length = 0;
+        drawCanvas(data)
+    }
 
     return{
         drawCanvas,
         backCanvas,
         originCanvas,
-        mosaicSize
+        mosaicSize,
+        reDrawCanvas,
     }
 })();
