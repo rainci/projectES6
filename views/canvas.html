@@ -22,7 +22,7 @@
 <div>
     <input type="button" value="撤销" id="undoBtn" onclick="mosaicCanvas.backCanvas()" />
     <input type="button" value="重置" id="undoBtn2" onclick="mosaicCanvas.originCanvas()" />
-    <input type="button" value="重新绘画" onclick="mosaicCanvas.reDrawCanvas({canvasWidth:800,sourceImagePath:'1.jpg'})">
+    <input type="button" value="重新绘画" onclick="mosaicCanvas.reDrawCanvas({canvasWidth : 800, sourceImagePath :' 1.jpg', dom : document.body})">
     <input type="button" id="savaCanvas" value="保存canvas" >
     <input type="button" id="" value="查看原图"  onclick="mosaicCanvas.originImg('1.jpg')">
     
@@ -57,7 +57,7 @@
             
     };
     //初始化图片和各项操作功能
-    mosaicCanvas.drawCanvas({canvasWidth:800,sourceImagePath:'1.jpg'})
+    mosaicCanvas.drawCanvas({canvasWidth : 800, sourceImagePath : '1.jpg', dom : document.body})
     //笔刷切换
     var spans = document.getElementsByTagName('span');
     for(let i=0;i<spans.length;i++){

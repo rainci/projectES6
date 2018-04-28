@@ -3,10 +3,10 @@ window.mosaicCanvas = (() => {
         ctx,
         num = 3;//马赛克的程度，数字越大越模糊
     /**
-     * @param {canvasWidth:number,sourceImagePath:url} data 
+     * @param {canvasWidth:number, sourceImagePath:url, dom:DOM} data 
      */
     const drawCanvas = data => {//first step draw canvas
-        const { canvasWidth, sourceImagePath } = data;
+        const { canvasWidth, sourceImagePath, dom } = data;
         let aImg = new Image();
         // aImg.setAttribute('crossOrigin', 'anonymous');
         aImg.src = sourceImagePath;
@@ -18,7 +18,7 @@ window.mosaicCanvas = (() => {
                 width: canvasWidth,
                 height,
             });
-            document.body.appendChild(canvasEl); //create canvas and append body
+            dom.appendChild(canvasEl); //create canvas and append body
             ctx = canvasEl.getContext("2d"); 
             ctx.drawImage(it, 0, 0, canvasWidth, height);
             return canvasEl;
