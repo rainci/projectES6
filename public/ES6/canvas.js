@@ -36,6 +36,7 @@ window.mosaicCanvas = (() => {
                         draw(ctx, x - 2, y - (num * 10) / 2);
                     }
                 }
+                // document.body.appendChild(convertCanvasToImage(canvasEl))                
             }
             canvasEl.onmouseup = () => {//鼠标在画布上离开
                 canvasEl.style.cursor = '';
@@ -124,6 +125,18 @@ window.mosaicCanvas = (() => {
         stack.length = 0;
         drawCanvas(data)
     }
+/**
+ * 保存图片，返回base64
+ * @param {DOM元素} canvas 
+ * @param {回调函数} callback 
+ */
+    const saveCanvas = (canvas,callback) => {
+        let canvasBase64 = canvas.toDataURL('image/png');
+            canvasBase64 = canvasBase64.substr(canvasBase64.indexOf(',')+1);
+            if(callback && typeof callback === 'function'){
+                callback(canvasBase64)
+            }
+    }
 
     return{
         drawCanvas,
@@ -131,5 +144,6 @@ window.mosaicCanvas = (() => {
         originCanvas,
         mosaicSize,
         reDrawCanvas,
+        saveCanvas
     }
 })();

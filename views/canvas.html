@@ -23,6 +23,8 @@
     <input type="button" value="撤销" id="undoBtn" onclick="mosaicCanvas.backCanvas()" />
     <input type="button" value="重置" id="undoBtn2" onclick="mosaicCanvas.originCanvas()" />
     <input type="button" value="重新绘画" onclick="mosaicCanvas.reDrawCanvas({canvasWidth:800,sourceImagePath:'1.jpg'})">
+    <input type="button" id="savaCanvas" value="保存canvas" >
+    
     <div class="mosaicSize">
         <span data-num=2>2</span>
         <span data-num=3>3</span>
@@ -68,5 +70,17 @@
                 }
             });
         });
+    }
+    document.getElementById('savaCanvas').onclick = ()=>{
+        var canvasEle = document.getElementById('canvas');
+        if(canvasEle){
+            mosaicCanvas.saveCanvas(canvasEle, base64 => {
+                 console.log('查看：',base64)
+                // var img = new Image();
+                // img.src = base64;
+                // document.body.appendChild(img);
+               
+            });            
+        }
     }
 </script>
