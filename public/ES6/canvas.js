@@ -138,12 +138,18 @@ window.mosaicCanvas = (() => {
             }
     }
 
+    // 查看原图
+    const originImg = url => {
+        window.open(url);
+    }
+    
     return{
         drawCanvas,
         backCanvas,
         originCanvas,
         mosaicSize,
         reDrawCanvas,
-        saveCanvas
+        saveCanvas,
+        originImg
     }
 })();
