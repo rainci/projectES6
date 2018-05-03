@@ -8,7 +8,7 @@ window.mosaicCanvas = (() => {
     const drawCanvas = data => {//first step draw canvas
         const { canvasWidth, sourceImagePath, dom } = data;
         let aImg = new Image();
-        // aImg.setAttribute('crossOrigin', 'anonymous');
+        aImg.setAttribute('crossOrigin', 'anonymous');
         aImg.src = sourceImagePath;
         let initDraw = it => {//绘制第一张图
             let height = aImg.height / (aImg.width / canvasWidth);
