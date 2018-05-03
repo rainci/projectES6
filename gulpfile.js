@@ -30,7 +30,7 @@ gulp.task('serve', function() {
     browserSync.init({
         port: 9999,
         server: {  
-            baseDir: './dist'
+            baseDir: './dist/'
         },
         files: files,
     }); 
