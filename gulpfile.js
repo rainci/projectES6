@@ -15,9 +15,11 @@ gulp.task("js",function(){
 });
 
 gulp.task("templates", function() {//编译jade成html
- var YOUR_LOCALS = {};
- gulp.src("./views/**/*.html")
-   .pipe(gulp.dest("./dist/"))
+    var YOUR_LOCALS = {};
+    gulp.src("./views/**/*.html")
+        .pipe(gulp.dest("./dist/"))
+    gulp.src("./views/**/*.gif")
+        .pipe(gulp.dest("./dist/"))
 });
 
 //启动热更新  
