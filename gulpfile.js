@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     reload = browserSync.reload;
 
 gulp.task("js",function(){
-    gulp.src("./public/ES6/**/*.js")
+    gulp.src(["./public/ES6/**/*.js"])
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -13,7 +13,10 @@ gulp.task("js",function(){
 		.pipe(gulp.dest("./dist/public/js"))
         .pipe(reload({stream: true}))
 });
-
+gulp.task("json",function(){
+    gulp.src(["./public/data/**/*.json"])
+		.pipe(gulp.dest("./dist/public/data"))
+});
 gulp.task("templates", function() {//编译jade成html
     var YOUR_LOCALS = {};
     gulp.src("./views/**/*.html")
@@ -42,4 +45,4 @@ gulp.task('watch',function(){//监听事件
     gulp.watch(["./public/ES6/**/*.js"],["js"]);
     gulp.watch(["./views/**/*.html"],["templates"]); 
 });
-gulp.task("default",["js","templates","watch","serve"]);
+gulp.task("default",["js","templates","watch","serve","json"]);
