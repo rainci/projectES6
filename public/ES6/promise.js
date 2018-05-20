@@ -189,3 +189,30 @@ let p5 = new Promise((res,rej) => {
 
 // p5 success:200 ok
 // p5 then success:200 ok hei
+
+// new People('whr').sleep(1000).eat('apple'); 
+class People {
+    constructor(name){
+        this.name = name;
+        this.p = Promise.resolve();
+    }
+    sleep(time){
+        this.p = this.p.then(() => new Promise(res => {
+            setTimeout(()=>{
+                res()
+            },time);
+        }))
+        return this;
+    }
+    eat(food){
+        this.p = this.p.then(() => {
+            console.log(`${this.name} eat one ${food}`)
+        })
+       return this;
+    }
+}
+window.People = People;
+
+Promise.resolve()
+.then()
+.then()
