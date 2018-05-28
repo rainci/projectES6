@@ -216,3 +216,58 @@ window.People = People;
 Promise.resolve()
 .then()
 .then()
+
+// 增加个递归算法,查找某个id的对象
+var arra = [
+    {
+        id: 1,
+        children:[{
+                id:2,
+                children:[]
+            }]
+    },
+
+    {
+        id:3,
+        children:[]
+    },
+
+    {
+        id:4,
+        children:[
+            {
+                id:5,
+                children:[
+                    {
+                        id:6,
+                        children:[]
+                    },
+
+                    {
+                        id:7,
+                        children:[]
+                    }
+                ]
+            }
+        ]
+    }
+];
+let findFn =(()=>{
+    let result;
+    return (arr,ids) => {
+        for(const {id, children} of arr) {
+            // debugger
+            if(ids === id){
+                return  result = {id,children};
+            }
+            if(children.length == 0){
+                console.log(`id是${id}的child为空`)
+                continue;
+            }
+            console.log(`id是${id}的child不为空`)
+            findFn(children,ids)
+        }
+        return result;
+    }
+})(); 
+console.log('id shi 5:',findFn(arra,5))
