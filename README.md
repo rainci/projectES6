@@ -4,7 +4,7 @@
 #cnpm install babel-core --save-dev
 #cnpm install babel-preset-es2015 --save-dev
 
-#gulpfile.js使用方式
+#gulpfile.js使用方式sss
 #var babel = require('gulp-babel');
 <!-- gulp.task("js",function(){
     gulp.src("./js path")
