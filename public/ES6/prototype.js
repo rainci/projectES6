@@ -89,4 +89,16 @@
 
 
 }
+{
+    //类继承，实例化为数组。并且constructor中history属性存在实例中，并且不算长度。
+    class Arr extends Array {
+        constructor(){
+            super();
+            this.history = [1];
+        }
+    }
+    var arr = new Arr(); //[history: Array(1)]  length为0
+    arr.push(2)  //[2, history: Array(1)]
+    arr.history //[1]
+}
 
