@@ -1,3 +1,4 @@
+// 代理模式
 let mult = function(){
     console.log('计算mult')
    let totle = 1;
