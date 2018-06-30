@@ -59,3 +59,34 @@ let showImgProxy = (()=>{
     }
 })(); 
 showImgProxy.setSrc('https://static.jintoushou.com/001/170911135031000101.jpeg');
+
+// 虚拟代理合并http请求
+let syncFile = id => {
+    console.log(`开始同步文件，${id}`)
+}
+let proxysyncFile = (()=>{
+    let cache = [];
+    let timer = null;
+    return id => {
+        cache.push(id);
+        if(timer){
+            return false;
+        }
+        timer = setTimeout(()=>{
+            let idStr = cache.join(',');
+            syncFile(idStr);
+            clearTimeout(timer);
+            timer = null;
+            cache.length = 0;
+
+        },2000)
+    }
+})();
+var checkbox = document.getElementsByTagName('input');
+for(let i=0,c;c=checkbox[i++];){
+    c.onclick = function(){
+        if(this.checked === true){
+            proxysyncFile(this.value)
+        }
+    }
+}
