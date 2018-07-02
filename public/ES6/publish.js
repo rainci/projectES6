@@ -11,4 +11,17 @@ let eventss = (()=>{
         }
     }
 })();
-window.eventss = eventss; 
+window.eventss = eventss;
+
+{
+    function test() {
+        if(true){
+            console.log('true')
+            return;
+        }else{
+            console.log('false')
+        }
+        console.log('end')
+    }
+    test();
+}
