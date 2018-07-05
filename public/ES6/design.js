@@ -91,3 +91,38 @@ for(let i=0,c;c=checkbox[i++];){
         }
     }
 }
+
+var arr = [
+    {id:1,name:'宠物美容'},
+    {id:2,name:'清洁保养', children:[
+        {id:4,name:'家庭清洁'}
+        ]},
+    {id:3,name:'汽车服务'}
+];
+var newArr = [
+    {id:1,name:'宠物美容'},
+    {id:2,name:'清洁保养'},
+    {id:4,name:'家庭清洁'},
+    {id:3,name:'汽车服务'}
+];
+
+const sortFn = (()=>{
+    let arrNew = [];
+    let fn =  (arr,newarr) => {
+        for(let i = 0; i < arr.length; i++){
+            newarr.push(arr[i]);
+        }
+    };
+    return arr => {
+        for(let j=0; j<arr.length; j++){
+            let {child, ...item} = arr[j];
+            arrNew.push(item);
+            if(child.length){
+                fn(child,arrNew);
+            }
+        }
+        return arrNew;
+    }
+})();
+let aaa = newArr(arr);
+console.log(aaa)
