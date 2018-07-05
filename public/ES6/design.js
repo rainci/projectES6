@@ -113,16 +113,17 @@ const sortFn = (()=>{
             newarr.push(arr[i]);
         }
     };
-    return arr => {
-        for(let j=0; j<arr.length; j++){
-            let {child, ...item} = arr[j];
+    return function(arr){
+        for(var j=0; j<arr.length; j++){
+            var {children,...item} = arr[j];
             arrNew.push(item);
-            if(child.length){
-                fn(child,arrNew);
+            console.log('print',children,item)
+            if(children && children.length){
+                fn(children,arrNew);
             }
         }
         return arrNew;
     }
 })();
-let aaa = newArr(arr);
+let aaa = sortFn(arr);
 console.log(aaa)

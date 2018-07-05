@@ -6,9 +6,9 @@ var gulp = require('gulp'),
 
 gulp.task("js",function(){
     gulp.src(["./public/ES6/**/*.js"])
-        .pipe(babel({
-            presets: ['es2015']
-        }))
+        // .pipe(babel({
+        //     presets: ['es2015']
+        // }))
         // .pipe(uglify({mangle: true,compress: true}))
 		.pipe(gulp.dest("./dist/public/js"))
         .pipe(reload({stream: true}))
