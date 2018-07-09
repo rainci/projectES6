@@ -122,3 +122,36 @@ const sortFn = (()=>{
 })();
 let aaa = sortFn(arr);
 
+// 设计模式之模版方法
+
+let Beverage = function(){};
+Beverage.prototype.boilWater = function(){
+    console.log('把水煮沸');
+}
+Beverage.prototype.brew = function(){
+    new Error('子类要重写')
+}
+Beverage.prototype.poulInCup = function(){
+    new Error('子类要重写')
+}
+Beverage.prototype.condition = function(){
+    new Error('子类要重写')
+}
+Beverage.prototype.customer = function(){
+    return true;
+}
+Beverage.prototype.init = function(){
+    this.boilWater();
+    this.brew();
+    this.poulInCup();
+    if(this.customer()){
+        this.condition();
+    }
+}
+let Coffee = function(){};
+Coffee.prototype = new Beverage();
+Coffee.prototype.brew = function(){
+    console.log('')
+}
+
+
