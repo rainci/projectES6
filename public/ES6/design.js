@@ -95,35 +95,30 @@ for(let i=0,c;c=checkbox[i++];){
 var arr = [
     {id:1,name:'宠物美容'},
     {id:2,name:'清洁保养', children:[
-        {id:4,name:'家庭清洁'}
-        ]},
-    {id:3,name:'汽车服务'}
-];
-var newArr = [
-    {id:1,name:'宠物美容'},
-    {id:2,name:'清洁保养'},
-    {id:4,name:'家庭清洁'},
-    {id:3,name:'汽车服务'}
+        {id:4,name:'家庭清洁'},
+        {id:5,name:'家庭环保',children:[
+            {id:6,name:'家庭装修'},
+            {id:7,name:'家庭套装'},
+        ]},      
+    ]},
+    {id:3,name:'丽人服务',children:[
+        {id:8,name:'面部按摩'}
+    ]},
+    {id:4,name:'汽车服务'}
 ];
 
 const sortFn = (()=>{
     let arrNew = [];
-    let fn =  (arr,newarr) => {
-        for(let i = 0; i < arr.length; i++){
-            newarr.push(arr[i]);
-        }
-    };
-    return function(arr){
+    return function pai(arr){
         for(var j=0; j<arr.length; j++){
             var {children,...item} = arr[j];
             arrNew.push(item);
-            console.log('print',children,item)
             if(children && children.length){
-                fn(children,arrNew);
+                pai(children);
             }
         }
         return arrNew;
     }
 })();
 let aaa = sortFn(arr);
-console.log(aaa)
+
