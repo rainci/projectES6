@@ -196,7 +196,7 @@ let order200 = (type,pay,kucun) => {
     if(type === 2 && pay === true){
         return log(`已交200定金，并且获取50代金券`);
     }
-    return 'next'
+    return 'next';
 };
 let orderNomal = (type,pay,kucun) => {
     if(kucun){
@@ -209,20 +209,20 @@ function Chain(fn){
     this.fn = fn;
     this.success = null;
 }
-Chain.prototype.setNext = (obj) => {
-    this.success = obj.prototype.do;
+Chain.prototype.setNext = function(obj){
+    this.success = obj;
 };
-Chain.prototype.do = () => {
+Chain.prototype.do = function(){
     let ret = this.fn.apply(this,arguments);
     if(ret === 'next'){
-        this.success.apply(this,arguments);
+        this.success && this.success.do.apply(this.success,arguments);
     }
+    return ret;
 
 };
-// debugger
 let chainOrder500 = new Chain(order500);
 let chainOrder200 = new Chain(order200);
 let chainOrderNomal = new Chain(orderNomal);
 chainOrder500.setNext(chainOrder200);
 chainOrder200.setNext(chainOrderNomal);
-chainOrder500.do(1,true,30)
+chainOrder500.do(2,true,0)
