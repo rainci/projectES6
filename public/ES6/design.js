@@ -182,3 +182,47 @@ Tea.prototype.customer = function(){
 
 let tea = new Tea();
 tea.init();
+
+let log = (...args) => {
+    console.log(...args)
+};
+let order500 = (type,pay,kucun) => {
+    if(type === 1 && pay === true){
+        return log(`已交500定金，并且获取100代金券`);
+    }
+    return 'next';
+};
+let order200 = (type,pay,kucun) => {
+    if(type === 2 && pay === true){
+        return log(`已交200定金，并且获取50代金券`);
+    }
+    return 'next'
+};
+let orderNomal = (type,pay,kucun) => {
+    if(kucun){
+        return log(`普通购买`);
+    }
+    log('库存不足，无法购买')
+};
+
+function Chain(fn){
+    this.fn = fn;
+    this.success = null;
+}
+Chain.prototype.setNext = (obj) => {
+    this.success = obj.prototype.do;
+};
+Chain.prototype.do = () => {
+    let ret = this.fn.apply(this,arguments);
+    if(ret === 'next'){
+        this.success.apply(this,arguments);
+    }
+
+};
+// debugger
+let chainOrder500 = new Chain(order500);
+let chainOrder200 = new Chain(order200);
+let chainOrderNomal = new Chain(orderNomal);
+chainOrder500.setNext(chainOrder200);
+chainOrder200.setNext(chainOrderNomal);
+chainOrder500.do(1,true,30)
