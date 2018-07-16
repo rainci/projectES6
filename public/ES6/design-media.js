@@ -37,11 +37,11 @@ var media = (function(){
             } 
             if(num > stock) {
                 nextBtn.disabled = true;
-                nextBtn.innerHTML = '库存不足，无法购买';
+                nextBtn.value = '库存不足，无法购买';
                 return;
             }
             nextBtn.disabled = false;
-            nextBtn.innerHTML = '放入购物车';
+            nextBtn.value = '加入购物车';
         }
     }
 
