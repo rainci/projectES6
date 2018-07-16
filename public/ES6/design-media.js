@@ -1,3 +1,7 @@
+function log(...args){
+    console.log(...args);
+}
+
 var goods = {
     'red|32G': 3,
     'red|16G': 5,
@@ -54,4 +58,38 @@ memorySelect.onchange = function(){
 }
 kuncunInput.oninput = function(){
     media.change(this)
+}
+
+function Player(name,color){
+    this.name = name;
+    this.color = color;
+    this.state = 'alive';
+}
+Player.prototype.win = function(){
+    log(`${this.name} win!`)
+}
+Player.prototype.lose = function(){
+    log(`${this.name} lose!`)
+}
+
+function playDirect(){
+    var players = {};//存所有player
+    var options = {};//存所有的操作
+    options['addPlayer'] = function(player){
+        var color = palyer.color;
+        palyers[color] = palyers[color] || [];
+        palyers[color].push(player);
+    };
+    options['removePlayer'] = function(player){
+        var color = palyer.color;
+        palyers[color] = palyers[color] || [];
+        for(var i=palyers[color].length-1,player;playerr=palyers[color][i--];){
+            if(player == playerr){
+                palyers[color].splice(i,1);
+            }
+        }       
+    };
+    var receiveMessage = function(){
+        options[]
+    }
 }
