@@ -5,12 +5,57 @@
     <title>发布订阅模式</title>
     <style>
         body{margin: auto 0;text-align: center;}
+        .teach,.students .student{
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 100%;
+            background: grey;
+
+        }
+        .teach {
+            margin: 10px auto;
+        }
+        .teachbox {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translate(-50%);
+            border:1px solid green;
+            display: none;
+
+        }
+        .students .student {
+            display: inline-block;
+        }
+        .studbox {
+            position: absolute;
+            left: 10%;
+            top: 100px;
+            display: none;
+            border:1px solid green;
+        }
+        .on {
+            background: green !important;
+        }
     </style>
     
 </head>
 <body>
-<div id="root">
+<div id="root" >
     <!-- <p>发布订阅模式：请看console</p> -->
+    <button id='ask'>ask</button>
+    <div style="position: relative;">
+        <div id='teacher'class='teach on' >teacher</div>
+        <div id='teacherbox' class="teachbox">请问有啥问题吗</div>
+    </div>
+
+    <div class="students" style="position: relative;">
+        <div id='student1' class="student on">student1</div>
+        <div id='student2' class="student on">student2</div>
+        <div id='student3' class="student on">student3</div>
+        <div id='studentbox' class="studbox">我有问题</div>
+    </div>
 </div> 
 <script src="../public/js/publish.js" type="module"></script>
 </body>
