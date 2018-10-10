@@ -4,7 +4,8 @@
     let set1 = new Set(arr1);
     log('arr1:',arr1,'set1:',set1)
     let arr2 = [...set1];
-    log('arr2:',arr2)
+    let arr3 = Array.from(set1)
+    log('arr2:',arr2,'arr3',arr3)
 }
 
 {
